@@ -44,6 +44,9 @@ public class Car
 
     public Integer moveCar(Integer old_location, Random rand)
     {
+        // See if old location was Sennott. Increment number of times visited if so.
+        checkSennott(old_location);
+
         // Find a random new location based off of the old location of the car
         Integer location_boolean = rand.nextBoolean() ? 0 : 1;
         Integer new_location = null;
@@ -92,10 +95,6 @@ public class Car
                 new_location = 3;
             }
         }
-        else
-        {
-            System.out.println("Error");
-        }
 
         // Set current location to new location
         setLocation(new_location);
@@ -103,12 +102,20 @@ public class Car
         // Add current location to visited locations
         getLocations().add(new_location);
 
-        if(new_location == 3)
+        return new_location;
+    }
+
+    public boolean checkSennott(Integer old_location)
+    {
+        // If location that the car is leaving is Sennott, increment number of times visited
+        if(old_location == 3)
         {
             setNum_sennott_visited(getNum_sennott_visited() + 1);
+
+            return true;
         }
 
-        return new_location;
+        return false;
     }
 
     public Integer getNumber()

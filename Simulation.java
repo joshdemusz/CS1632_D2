@@ -26,7 +26,7 @@ public class Simulation
             Car curr = new Car(i+1);
 
             // Initialize driver location
-            curr.initializeLocation(rand_initial);
+            initializeLocation(curr, rand_initial);
 
             // Simulate the driver's path
             simulateRoute(curr, rand_route);
@@ -39,16 +39,11 @@ public class Simulation
         {
             Car curr = cars.get(i);
 
-            //System.out.println(curr.getLocations().toString());
-
             // Cycle through path of each car. Print out each movement.
             for(int j = 1; j < curr.getLocations().size(); j++)
             {
                 Integer start_location_num = curr.getLocations().get(j-1);
                 Integer end_location_num = curr.getLocations().get(j);
-
-                //System.out.println("start "+start_location_num);
-                //System.out.println("end "+end_location_num);
 
                 String street = LocationUtility.getStreet(start_location_num, end_location_num);
                 String start_location;
@@ -87,6 +82,15 @@ public class Simulation
             //System.out.println(c.getLocation());
         };
 
+        return true;
+    }
+
+    public boolean initializeLocation(Car curr, Random rand_initial)
+    {
+        // Initialize driver location
+        curr.initializeLocation(rand_initial);
+
+        // Indicates that method executed successfully
         return true;
     }
 
