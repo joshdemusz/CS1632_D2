@@ -253,6 +253,9 @@ public class SimulationTest
         Assert.assertEquals(new Integer(0), c.moveCar(0, r));
     }
 
+    /*
+     This test tests the getter for the 'seed' variable. It is similar to the test for the setter.
+    */
     @Test
     public void testGetSeed()
     {
@@ -263,6 +266,9 @@ public class SimulationTest
         Assert.assertEquals(new Integer(1), s.getSeed());
     }
 
+    /*
+     This test tests the setter for the 'seed' variable. It is similar to the test for the getter.
+    */
     @Test
     public void testSetSeed()
     {
