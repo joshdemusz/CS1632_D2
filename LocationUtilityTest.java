@@ -1,9 +1,13 @@
+/*
+    Josh Demusz
+    CS 1632
+    Deliverable 2
+    2/19/17
+ */
+
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * Created by joshdemusz on 2/18/17.
- */
 public class LocationUtilityTest
 {
     // ***************************** Tests for 'LocationUtility.java' **********************************

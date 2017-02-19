@@ -1,9 +1,13 @@
+/*
+    Josh Demusz
+    CS 1632
+    Deliverable 2
+    2/19/17
+ */
+
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Created by joshdemusz on 2/9/17.
- */
 public class Car
 {
     private Integer number;
@@ -21,6 +25,7 @@ public class Car
     // Statistical data that needs to be collected from simulation
     private Integer num_sennott_visited;
 
+    // Constructor
     public Car(Integer num)
     {
         locations = new ArrayList<Integer>();
@@ -51,6 +56,8 @@ public class Car
         Integer location_boolean = rand.nextBoolean() ? 0 : 1;
         Integer new_location = null;
 
+        // Based on old location, move the car to a new location. This new location is determined by
+        //      the random number previously generated.
         if(old_location == 1)
         {
             if(location_boolean == 0)

@@ -1,6 +1,10 @@
-/**
- * Created by joshdemusz on 2/9/17.
+/*
+    Josh Demusz
+    CS 1632
+    Deliverable 2
+    2/19/17
  */
+
 public final class LocationUtility
 {
     // Make sure that this class cannot be instantiated.
@@ -21,6 +25,7 @@ public final class LocationUtility
     {
         String street = null;
 
+        // Returns a street String based on the start and end locations which are passed in.
         if(start == 1 && end == 2)
         {
             street = new String("Fourth Ave.");
@@ -61,6 +66,7 @@ public final class LocationUtility
     {
         String location = null;
 
+        // Returns a location String based on which location number is passed in
         if(num.equals(1))
         {
             location = new String("Presby");
@@ -85,6 +91,7 @@ public final class LocationUtility
     {
         String outside_location = null;
 
+        // If car exited the city, determine where it is going based on the previous locaiton visited
         if(last_visited.equals(2))
         {
             outside_location = new String("Philadelphia");

@@ -1,11 +1,15 @@
-/**
- * Created by joshdemusz on 2/9/17.
+/*
+    Josh Demusz
+    CS 1632
+    Deliverable 2
+    2/19/17
  */
+
 public class Main
 {
     public static void main(String[] args)
     {
-        //
+        // Create a simulation object
         Simulation sim = new Simulation();
 
         Integer seed = sim.checkArgs(args);
@@ -16,6 +20,7 @@ public class Main
             System.exit(0);
         }
 
+        // Run the simulation
         sim.run();
 
     }

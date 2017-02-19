@@ -1,6 +1,10 @@
-/**
- * Created by joshdemusz on 2/18/17.
+/*
+    Josh Demusz
+    CS 1632
+    Deliverable 2
+    2/19/17
  */
+
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
@@ -14,6 +18,7 @@ public class TestRunner
         ArrayList<Class> classesToTest = new ArrayList<Class>();
         boolean anyFailures = false;
 
+        // Add classes to test
         classesToTest.add(CarTest.class);
         classesToTest.add(SimulationTest.class);
         classesToTest.add(LocationUtilityTest.class);

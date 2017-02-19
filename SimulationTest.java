@@ -1,28 +1,40 @@
+/*
+    Josh Demusz
+    CS 1632
+    Deliverable 2
+    2/19/17
+ */
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
-
 import java.util.Random;
 
-/**
- * Created by joshdemusz on 2/18/17.
- */
 public class SimulationTest
 {
     // ***************************** Tests for 'Simulation.java' ****************************************
 
     /*
+    This is a simple test for the constructor method. It makes sure that the object created
+        by the constructor is not null.
+     */
+    @Test
+    public void testConstructor()
+    {
+        Simulation s = new Simulation();
+
+        Assert.assertNotNull(s);
+    }
+
+    /*
     This test is for the checkArgs method. It makes sure that the method returns an integer value when
          an integer argument is passed in. It should NOT return null when an integer is passed in.
-         This test uses a MOCK object.
     */
     @Test
     public void testIntegerArg()
     {
-        Integer i = Mockito.mock(Integer.class);
-
         String args[] = new String[1];
-        args[0] = new String(i.toString());
+        args[0] = new String("1");
 
         Simulation sim = new Simulation();
 
@@ -89,8 +101,9 @@ public class SimulationTest
         Assert.assertNull(sim.checkArgs(args));
     }
 
-    // This test is for the run() method in Simulation class. This test makes sure the method runs to completion
-    //      without any infinite loops
+    /* This test is for the run() method in Simulation class. This test makes sure the method runs to completion
+          without any infinite loops
+    */
     @Test
     public void testRun()
     {
@@ -103,13 +116,15 @@ public class SimulationTest
         Assert.assertTrue(sim.run());
     }
 
-    // This test is for the simulateRoute() method in Simulation class. This test makes sure the method runs to completion
-    //      without any infinite loops. This test uses a MOCK class.
+    /* This test is for the simulateRoute() method in Simulation class. This test makes sure the method runs to completion
+          without any infinite loops. This test uses a MOCK class.
+    */
     @Test
     public void testSimulateRoute()
     {
         Integer seed = 1;
-        Random rand = new Random(seed);
+        Random r1 = new Random(seed);
+        Random r2 = new Random(seed);
 
         String args[] = new String[1];
         args[0] = new String("1");
@@ -117,30 +132,12 @@ public class SimulationTest
         Simulation sim = new Simulation();
         sim.checkArgs(args);
 
-        Car c = Mockito.mock(Car.class);
+        Car c = new Car(1);
+        c.initializeLocation(r2);
 
-        Assert.assertTrue(sim.simulateRoute(c, rand));
-    }
+        boolean b = sim.simulateRoute(c, r1);
 
-    /*
-    This test makes sure that the method 'simulateRoute)' is called exactly
-        5 times when the method 'run()' is called. This test uses STUBBING as well as MOCKS.
-    */
-    @Test
-    public void testSimulateTimes()
-    {
-        String args[] = new String[1];
-        args[0] = new String("1");
-
-        Simulation sim = new Simulation();
-        sim.checkArgs(args);
-
-        Car c = Mockito.mock(Car.class);
-        Random r = Mockito.mock(Random.class);
-
-        Mockito.when(sim.simulateRoute(c, r)).thenReturn(true);
-        sim.run();
-        Mockito.verify(sim, Mockito.times(5)).simulateRoute(c, r);
+        Assert.assertTrue(b);
     }
 
     /*
@@ -192,24 +189,6 @@ public class SimulationTest
     }
 
     /*
-    This test makes sure that the method 'printLaboonMessage(n)' is called exactly
-        5 times when the method 'run()' is called. This test uses STUBBING.
-     */
-    @Test
-    public void testPrintMessage5Times()
-    {
-        String args[] = new String[1];
-        args[0] = new String("1");
-
-        Simulation sim = new Simulation();
-        sim.checkArgs(args);
-
-        Mockito.when(sim.printLaboonMessage(0)).thenReturn(0);
-        sim.run();
-        Mockito.verify(sim, Mockito.times(5)).printLaboonMessage(0);
-    }
-
-    /*
     This test makes sure that the Simulation class only initializes a Car object's location once.
         It uses MOCK objects as well as STUBBING.
      */
@@ -228,6 +207,70 @@ public class SimulationTest
         Mockito.when(c.initializeLocation(r)).thenReturn(0);
         sim.initializeLocation(c, r);
         Mockito.verify(c, Mockito.times(1)).initializeLocation(r);
+    }
+
+    /*
+    This test makes sure that the Simulation class only allows for one movement of the car at a time.
+        It uses MOCK objects as well as STUBBING.
+    */
+    @Test
+    public void testLeastMove()
+    {
+        String args[] = new String[1];
+        args[0] = new String("1");
+
+        Simulation sim = new Simulation();
+        sim.checkArgs(args);
+
+        Car c = Mockito.mock(Car.class);
+        Random r = new Random(1);
+
+        // Make sure moveCar in Car class is only called once each time
+        Mockito.when(c.moveCar(0, r)).thenReturn(0);
+        sim.moveCar(c, r);
+        Mockito.verify(c, Mockito.times(1)).moveCar(0, r);
+    }
+
+    /*
+    This test makes sure that the Simulation class successfully executes the 'moveCar' method.
+        It uses MOCK objects as well as STUBBING.
+    */
+    @Test
+    public void testCarMove()
+    {
+        String args[] = new String[1];
+        args[0] = new String("1");
+
+        Simulation sim = new Simulation();
+        sim.checkArgs(args);
+
+        Car c = Mockito.mock(Car.class);
+        Random r = new Random(1);
+
+        // Make sure moveCar in Car class is called
+        Mockito.when(c.moveCar(0, r)).thenReturn(0);
+        sim.moveCar(c, r);
+        Assert.assertEquals(new Integer(0), c.moveCar(0, r));
+    }
+
+    @Test
+    public void testGetSeed()
+    {
+        Simulation s = new Simulation();
+
+        s.setSeed(1);
+
+        Assert.assertEquals(new Integer(1), s.getSeed());
+    }
+
+    @Test
+    public void testSetSeed()
+    {
+        Simulation s = new Simulation();
+
+        s.setSeed(2);
+
+        Assert.assertEquals(new Integer(2), s.getSeed());
     }
 
     // *************************************************************************************************

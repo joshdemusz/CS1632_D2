@@ -1,9 +1,13 @@
+/*
+    Josh Demusz
+    CS 1632
+    Deliverable 2
+    2/19/17
+ */
+
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Created by joshdemusz on 2/9/17.
- */
 public class Simulation
 {
     private Integer seed;
@@ -39,18 +43,21 @@ public class Simulation
         {
             Car curr = cars.get(i);
 
-            // Cycle through path of each car. Print out each movement.
+            // Cycle through moves of each car. Print out each movement.
             for(int j = 1; j < curr.getLocations().size(); j++)
             {
                 Integer start_location_num = curr.getLocations().get(j-1);
                 Integer end_location_num = curr.getLocations().get(j);
 
+                // Get the street connecting the start and end locations
                 String street = LocationUtility.getStreet(start_location_num, end_location_num);
                 String start_location;
                 String end_location;
 
+                // Get start location
                 start_location = LocationUtility.getLocation(start_location_num);
 
+                // Get end location
                 if(end_location_num == 5)
                 {
                     end_location = LocationUtility.getOutsideLocation(curr.getLocations().get(j-1));
@@ -60,6 +67,7 @@ public class Simulation
                     end_location = LocationUtility.getLocation(end_location_num);
                 }
 
+                // Print the movement
                 System.out.println("Driver "+ curr.getNumber()+" heading from "+start_location+" to "+end_location+" via "+street);
             }
 
@@ -77,12 +85,18 @@ public class Simulation
 
     public boolean simulateRoute(Car c, Random rand)
     {
-        while(c.moveCar(c.getLocation(), rand) != 5)
-        {
-            //System.out.println(c.getLocation());
-        };
+        // Keep moving the car until it exits the city
+        while(moveCar(c, rand) != 5){}
 
         return true;
+    }
+
+    public Integer moveCar(Car c, Random rand)
+    {
+        // Move the car that was passed in
+        Integer i = c.moveCar(c.getLocation(), rand);
+
+        return i;
     }
 
     public boolean initializeLocation(Car curr, Random rand_initial)
@@ -96,6 +110,7 @@ public class Simulation
 
     public Integer checkArgs(String[] args)
     {
+        // Return null if the entered parameters are not correct
         Integer seed = null;
 
         // If there is only one argument and it is an integer
@@ -113,11 +128,13 @@ public class Simulation
     {
         Integer r = null;
 
+        // If Sennott was not visited
         if(n == 0)
         {
             System.out.println("That student missed out!");
             r = new Integer(0);
         }
+        // If Sennott was visited 3 or more times
         else if(n >= 3)
         {
             System.out.println("Wow, that driver needed lots of CS help!");
